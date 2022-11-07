@@ -28,7 +28,7 @@
       }
     },
     {
-      "mark": {"type": "text", "filled": true},
+      "mark": {"type": "text", "filled": true, "xOffset": 15},
       "encoding": {
         "x": {
           "field": "IMDB Rating",

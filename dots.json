@@ -42,10 +42,17 @@
         ],
         "name": "Major Genre:"
       }
-    },
-    "number_selector": {
-      "type": "single",
-      "fields": ["IMDB Rating"],
+    }
+  },
+  "transform": [
+    {"filter": "datum['IMDB Rating']>= number_selector"},
+    {"filter": {"selection": "genre_selector"}}
+  ],
+  "params": [
+    {"name": "Poner_color", "bind": {"input": "checkbox"}},
+    {"name": "grid", "select": "interval", "bind": "scales"},
+    {"name": "number_selector",
+      "value":8,
       "bind": {
         "input": "range",
         "min": 6,
@@ -54,14 +61,6 @@
         "name": "Puntuación IMDB mayor igual a:"
       }
     }
-  },
-  "transform": [
-    {"filter": "datum['IMDB Rating']>= 8"},
-    {"filter": {"selection": "genre_selector"}}
-  ],
-  "params": [
-    {"name": "toggleOrigin", "bind": {"input": "checkbox"}},
-    {"name": "grid", "select": "interval", "bind": "scales"}
   ],
   "mark": "point",
   "encoding": {
@@ -69,9 +68,10 @@
     "y": {"field": "Production Budget", "type": "quantitative"},
     "color": {
       "condition": {
-        "param": "toggleOrigin",
+        "param": "Poner_color",
         "field": "IMDB Rating",
-        "type": "nominal"
+        "type": "quantitative",
+        "scale": {"scheme": "redyellowgreen"}
       },
       "value": "grey"
     },
