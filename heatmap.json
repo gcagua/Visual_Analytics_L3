@@ -1,0 +1,71 @@
+{
+  "title": "Número de películas por par de rangos",
+    "data": {
+    "url": "https://raw.githubusercontent.com/vega/vega-datasets/next/data/movies.json"
+  },
+  "width": 400,
+  "height": 400,
+  "selection": {
+    "grid": {"type": "interval", "bind": "scales"},
+    "genre_selector": {
+      "type": "single",
+      "fields": ["Major Genre"],
+      "bind": {
+        "input": "select",
+        "options": [
+          "Action",
+          "Adventure",
+          "Black Comedy",
+          "Comedy",
+          "Concert/Performance",
+          "Documentary",
+          "Drama",
+          "Horror",
+          "Musical",
+          "Romantic Comedy",
+          "Thriller/Suspense",
+          "Western"
+        ],
+        "labels": [
+          "Action",
+          "Adventure",
+          "Black Comedy",
+          "Comedy",
+          "Concert/Performance",
+          "Documentary",
+          "Drama",
+          "Horror",
+          "Musical",
+          "Romantic Comedy",
+          "Thriller/Suspense",
+          "Western"
+        ],
+        "name": "Seleccione género:"
+      }
+    }
+  },
+  "transform": [
+    {"filter": {"selection": "genre_selector"}},
+    {"calculate": "round(datum['IMDB Rating'])"
+    , "as": "Simplified IMDB Rating"},
+    {"calculate": "round(datum['Rotten Tomatoes Rating']/10)",
+     "as": "Simplified Rotten Tomatoes Rating"}
+  ],
+  "mark": "rect",
+  "encoding": {
+    "y": {"field": "Simplified IMDB Rating", 
+    "type": "ordinal", 
+    "sort": "-x"},
+    "x": {"field": "Simplified Rotten Tomatoes Rating", 
+    "type": "ordinal"},
+    "color": {
+        "field": "Title",
+        "aggregate": "count",
+        "type": "quantitative",
+        "legend": {
+            "title": null
+        }
+    }
+  },
+  "config": {}
+}

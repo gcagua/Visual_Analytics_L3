@@ -1,0 +1,49 @@
+{
+  "data": {
+    "url": "https://raw.githubusercontent.com/vega/vega-datasets/next/data/movies.json"
+  },
+  "width": 550,
+  "encoding": {
+    "y": {"field": "Major Genre", "type": "nominal", "sort": "-x"},
+    "x": {"field": "IMDB Rating", "type": "quantitative"}
+  },
+  "layer": [
+    {
+      "mark": "line",
+      "encoding": {
+        "detail": {"field": "Major Genre", "type": "nominal"},
+        "color": {"value": "#db646f"}
+      }
+    },
+    {
+      "mark": {"type": "point", "filled": true},
+      "encoding": {
+        "x": {
+          "field": "IMDB Rating",
+          "type": "quantitative",
+          "aggregate": "mean"
+        },
+        "color": {"value": "#911a24"},
+        "size": {"value": 100}
+      }
+    },
+    {
+      "mark": {"type": "text", "filled": true},
+      "encoding": {
+        "x": {
+          "field": "IMDB Rating",
+          "type": "quantitative",
+          "aggregate": "max"
+        },
+        "text": {
+          "field": "IMDB Rating",
+          "type": "quantitative",
+          "aggregate": "max"
+        },
+        "color": {"value": "black"},
+        "size": {"value": 10}
+      }
+    }
+  ],
+  "config": {}
+}

@@ -1,0 +1,81 @@
+{
+  "data": {
+    "url": "https://raw.githubusercontent.com/vega/vega-datasets/next/data/movies.json"
+  },
+  "width": 500,
+  "selection": {
+    "grid": {"type": "interval", "bind": "scales"},
+    "genre_selector": {
+      "type": "single",
+      "fields": ["Major Genre"],
+      "bind": {
+        "input": "select",
+        "options": [
+          null,
+          "Action",
+          "Adventure",
+          "Black Comedy",
+          "Comedy",
+          "Concert/Performance",
+          "Documentary",
+          "Drama",
+          "Horror",
+          "Musical",
+          "Romantic Comedy",
+          "Thriller/Suspense",
+          "Western"
+        ],
+        "labels": [
+          "Todos",
+          "Action",
+          "Adventure",
+          "Black Comedy",
+          "Comedy",
+          "Concert/Performance",
+          "Documentary",
+          "Drama",
+          "Horror",
+          "Musical",
+          "Romantic Comedy",
+          "Thriller/Suspense",
+          "Western"
+        ],
+        "name": "Major Genre:"
+      }
+    },
+    "number_selector": {
+      "type": "single",
+      "fields": ["IMDB Rating"],
+      "bind": {
+        "input": "range",
+        "min": 6,
+        "max": 9.5,
+        "step": 0.5,
+        "name": "Puntuación IMDB mayor igual a:"
+      }
+    }
+  },
+  "transform": [
+    {"filter": "datum['IMDB Rating']>= 8"},
+    {"filter": {"selection": "genre_selector"}}
+  ],
+  "params": [
+    {"name": "toggleOrigin", "bind": {"input": "checkbox"}},
+    {"name": "grid", "select": "interval", "bind": "scales"}
+  ],
+  "mark": "point",
+  "encoding": {
+    "x": {"field": "Worldwide Gross", "type": "quantitative"},
+    "y": {"field": "Production Budget", "type": "quantitative"},
+    "color": {
+      "condition": {
+        "param": "toggleOrigin",
+        "field": "IMDB Rating",
+        "type": "nominal"
+      },
+      "value": "grey"
+    },
+    "size": {"value": 30}
+  },
+  "config": {}
+}
